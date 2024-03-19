@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Application</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="btn btn-success" style="text-align: center; align-items: center; justify-content: center; display: flex;">Developer Super League TASK 1 Completed By Team Desi Developers</h1>
+    <div class="container mt-5">
+        <h1>Welcome to the Bank</h1>
+
+      
+        <form id="accountForm">
+            <div class="form-group">
+                <label for="accountName">Account Name:</label>
+                <input type="text" class="form-control" id="accountName" required>
+            </div>
+            <div class="form-group">
+                <label for="initialBalance">Initial Balance:</label>
+                <input type="number" class="form-control" id="initialBalance" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
+
+      
+        <form id="transactionForm">
+            <div class="form-group">
+                <label for="transactionAmount">Transaction Amount:</label>
+                <input type="number" class="form-control" id="transactionAmount" required>
+            </div>
+            <button type="button" class="btn btn-success" onclick="deposit()">Deposit</button>
+            <button type="button" class="btn btn-danger" onclick="withdraw()">Withdraw</button>
+        </form>
+
+      
+        <div class="mt-3">
+            <h3>Current Balance:</h3>
+            <p id="balanceDisplay">$0.00</p>
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let balance = 0;
+
+        
+        document.getElementById('accountForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const accountName = document.getElementById('accountName').value;
+            const initialBalance = parseFloat(document.getElementById('initialBalance').value);
+            balance = initialBalance;
+            updateBalance();
+            Swal.fire('Account Created!', 'Your bank account has been created successfully.', 'success');
+        });
+
+        function deposit() {
+            const transactionAmount = parseFloat(document.getElementById('transactionAmount').value);
+            if (!isNaN(transactionAmount)) {
+                balance += transactionAmount;
+                updateBalance();
+            }
+        }
+
+        function withdraw() {
+            const transactionAmount = parseFloat(document.getElementById('transactionAmount').value);
+            if (!isNaN(transactionAmount) && transactionAmount <= balance) {
+                balance -= transactionAmount;
+                updateBalance();
+            }
+        }
+
+        function updateBalance() {
+            document.getElementById('balanceDisplay').textContent = `$${balance.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
